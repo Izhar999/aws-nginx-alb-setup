@@ -12,7 +12,7 @@
        - **Type**: SSH | **Protocol**: TCP | **Port**: 22 | **Source**: My IP
 
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bu80k7vwxrkk8ad9j5ar.png)
+![izhar](1_aaws_ss/ss1.png)
 
 
 ### Add User Data Script
@@ -24,55 +24,43 @@ In the **Advanced Details** section, paste the following **user-data** script:
 apt-get update
 apt-get install nginx -y
 
+# Custom HTML for each server
 cat <<EOF > /var/www/html/index.html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome to $(hostname)</title>
+  <title>Welcome - Server-1</title>
   <style>
     body {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      background-color: #0a192f;
+      color: #64ffda;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 20%;
     }
     h1 {
       font-size: 3em;
-      margin: 0.2em 0;
     }
     p {
       font-size: 1.2em;
-      color: #cce3ff;
-    }
-    .hostname {
-      background: #ffffff33;
-      padding: 0.5em 1em;
-      border-radius: 10px;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1> Welcome to Omkar Server!</h1>
-  <p>This server is proudly hosted as:</p>
-  <div class="hostname">$(hostname)</div>
+  <h1>Welcome to Server-1 🚀</h1>
+  <p>This EC2 instance is part of a Load Balanced architecture.</p>
+  <p><strong>Hostname:</strong> $(hostname)</p>
 </body>
 </html>
 EOF
+
 ```
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6me15l63921n3xadlylx.png)
+![izhar](1_aaws_ss/ss2.png)
 
-**Similarly create three servers: server-1, server-2 and server-3 respectively**
+**Similarly create four servers: server-1, server-2, server-3 and server-4 respectively**
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/um790rnfl6xduaeh635j.png)
+![izhar](1_aaws_ss/ss3.png)
 
 ## ✅ Step 2: Create a Target Group and Register EC2 Instances
 
@@ -88,7 +76,7 @@ Once your EC2 instances are launched and NGINX is running on them (port 80), the
 4. Click **Create target group**
 
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qy7h8xbzpfx743lxbd6s.png)
+![izhar](1_aaws_ss/ss4.png)
 
 
 ### Configure Target Group
@@ -119,11 +107,13 @@ On the **Register targets** page:
 4. Click **Include as pending below**.
 5. Scroll down and click **Create target group**.
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d5vo0sa25bhpm2w9jrz8.png)
+![izhar](1_aaws_ss/ss5.png)
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/juzer33vuje00gc56p8p.png)
+![izhar](1_aaws_ss/ss6.png)
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vkh786bp5mdltebom63z.png)
+![izhar](1_aaws_ss/ss7.png)
+
+![izhar](1_aaws_ss/ss8.png)
 
 
 ### Verify Registration
@@ -135,7 +125,7 @@ After creation:
 - Click on the **Targets** tab
 - You should see the EC2 instances with a **healthy** status after a few seconds (if health checks pass)
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ty8kwvxjnnbjccvekukh.png)
+![izhar](1_aaws_ss/ss8.png)
 
 ## ✅ Step 3: Creating an Application Load Balancer and Associating It with a Target Group
 
@@ -157,7 +147,7 @@ Choose **Application Load Balancer (ALB)**:
 
 Click **Create** under Application Load Balancer.
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xwezd5qtqb6lizc2xaqv.png)
+![izhar](1_aaws_ss/ss9.png)
 
 ### Configure Basic Settings
 
@@ -167,11 +157,11 @@ Fill in the required fields:
 - **IP address type**: `IPv4`
 - **Listener**: `HTTP` on port `80`
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/klyg4au0dqwc0yygo5qq.png)
+![izhar](1_aaws_ss/ss10.png)
 
 Click **Next: Configure Security Settings**
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qr9qir9m3qx0r56qc6ai.png)
+![izhar](1_aaws_ss/ss11.png)
 
 
 ### Register Target Group
@@ -184,7 +174,7 @@ In this step, you’ll associate the previously created **Target Group** with th
 
 Click **Next: Register Targets**
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/h10e0bwp347gxnlqedsx.png)
+![izhar](1_aaws_ss/ss12.png)
 
 
 ### Review and Create
@@ -198,8 +188,10 @@ After a few moments, your load balancer will be **provisioned and active**.
 ### Access Your Load Balancer
 
 1. Go to **EC2 → Load Balancers**
-2. Copy the **DNS name** of your ALB (e.g., `my-alb-123456789.us-east-1.elb.amazonaws.com`)
+2. Copy the **DNS name** of your ALB (e.g., `http://ALB-testing-2121435907.us-east-1.elb.amazonaws.com`)
 3. Paste it in your browser:
+
+![izhar](1_aaws_ss/ss13.png)
 
 
 > - _**Note: You cannot access the instance through the ALB DNS name why?
@@ -218,15 +210,17 @@ because the SG of ALB only allows to communicate within itself to one thing you 
 >-  _**Important: If using custom VPC then you need to create a new Security group for the ALB and allow traffic from every where note that ALB should be in the public subnet and anywhere rule in SG makesure to attach the SG of ALB to the server instance for security point of view**_
 
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lkp40ehlwa329ia7ev8q.png)
+![izhar](1_aaws_ss/ss14.png)
 
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/w6jnx30cptldqnj4sido.png)
+![izhar](1_aaws_ss/ss15.png)
 
 
-![omkar sharma](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xpuhkqqmn2npxze52o5g.png)
+![izhar](1_aaws_ss/ss16.png)
 
-> Hurray!! We are getting response from all three servers.
+![izhar](1_aaws_ss/ss17.png)
+
+> Hurray!! We are getting response from all four servers.
 
 
 

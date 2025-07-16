@@ -88,7 +88,7 @@ That’s it for the architecture and concept explanation.
 
 ---
 
-✍️ **Author**: *Omkar Sharma*  
-📬 *Feel free to connect on [LinkedIn](https://www.linkedin.com/in/omkarsharmaa/) or explore more on [GitHub](https://github.com/omkarsharma2821)*  
+✍️ **Author**: *Md Izharul Hassan*  
+📬 *Feel free to connect on [LinkedIn](https://www.linkedin.com/in/md-izharul/) or explore more on [GitHub](https://github.com/Izhar999)*  
 
 ---
